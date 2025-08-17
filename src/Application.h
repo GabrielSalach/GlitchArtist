@@ -10,6 +10,7 @@
 #include <imgui_impl_opengl3.h>
 #include <vector>
 
+#include "Effects/EffectStack.h"
 #include "GuiComponents/IWindow.h"
 #include "FileLoading/Image.h"
 
@@ -24,11 +25,13 @@ namespace GlitchArtist {
     private:
         void BindWindows();
         void LoadImage();
+        void LoadEffectStack();
 
         std::vector<std::unique_ptr<IWindow>> windows;
         // const std::string image_path = "/Users/gabrielsalach/Desktop/test.bmp";
         const std::string image_path = "/Users/gabrielsalach/Desktop/test3.bmp";
         Image* image = nullptr;
+        EffectStack* effect_stack = nullptr;
     };
 } // GlitchArtist
 

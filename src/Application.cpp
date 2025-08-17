@@ -4,8 +4,10 @@
 
 #include "Application.h"
 
+#include "AudioEncoding/MuLawCodec.h"
 #include "GuiComponents/PreviewWindow.h"
 #include "FileLoading/BMPLoader.h"
+#include "GuiComponents/EffectStackWindow.h"
 
 namespace GlitchArtist {
     void Application::Init(GLFWwindow* window, const char* glsl_version) {
@@ -20,6 +22,7 @@ namespace GlitchArtist {
         ImGui::StyleColorsDark();
 
         LoadImage();
+        LoadEffectStack();
         // Initialize windows
         BindWindows();
     }
@@ -30,7 +33,14 @@ namespace GlitchArtist {
         image->LoadImage(image_path);
     }
 
+    void Application::LoadEffectStack() {
+        effect_stack = new EffectStack(image, new MuLawCodec());
+        effect_stack->InitializeStack();
+    }
+
+
     void Application::BindWindows() {
+        windows.push_back(std::make_unique<EffectStackWindow>(effect_stack));
         windows.push_back(std::make_unique<PreviewWindow>(image));
     }
 
@@ -42,6 +52,12 @@ namespace GlitchArtist {
 
     void Application::Update() {
         ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
+        effect_stack->ApplyEffects();
+
+        ImGui::Begin("Debug");
+        ImGui::Text("%.f fps", 1.0f / ImGui::GetIO().DeltaTime);
+        ImGui::End();
+
         for (auto& window : windows) {
             window->RenderWindow();
         }
@@ -57,5 +73,10 @@ namespace GlitchArtist {
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
+
+        delete effect_stack;
+        delete image;
+        windows.clear();
+
     }
 } // GlitchArtist

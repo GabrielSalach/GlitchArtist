@@ -23,15 +23,15 @@ namespace GlitchArtist {
         file.read(reinterpret_cast<char*>(&file_header), sizeof(BMPFileHeader));
         file.read(reinterpret_cast<char*>(&info_header), sizeof(BMPInfoHeader));
 
-        // DEBUG: Afficher toutes les informations
-        printf("=== DEBUG BMP ===\n");
-        printf("File type: 0x%04X (doit être 0x4D42)\n", file_header.file_type);
-        printf("File size: %u bytes\n", file_header.file_size);
-        printf("Data offset: %u\n", file_header.offset_data);
-        printf("Image: %dx%d\n", info_header.width, info_header.height);
-        printf("Bit count: %d\n", info_header.bit_count);
-        printf("Compression: %u\n", info_header.compression);
-        printf("=================\n");
+        // // DEBUG: Afficher toutes les informations
+        // printf("=== DEBUG BMP ===\n");
+        // printf("File type: 0x%04X (doit être 0x4D42)\n", file_header.file_type);
+        // printf("File size: %u bytes\n", file_header.file_size);
+        // printf("Data offset: %u\n", file_header.offset_data);
+        // printf("Image: %dx%d\n", info_header.width, info_header.height);
+        // printf("Bit count: %d\n", info_header.bit_count);
+        // printf("Compression: %u\n", info_header.compression);
+        // printf("=================\n");
 
         // Vérifications
         if (file_header.file_type != 0x4D42) {
@@ -54,8 +54,8 @@ namespace GlitchArtist {
         image->height = abs(info_header.height);
         image->channels = info_header.bit_count / 8;
 
-        printf("Image configurée: %dx%d, %d canaux\n",
-               image->width, image->height, image->channels);
+        // printf("Image configurée: %dx%d, %d canaux\n",
+        //        image->width, image->height, image->channels);
 
         // CORRECTION CRITIQUE: Position correcte des données
         file.clear(); // Clear any error flags
@@ -63,23 +63,23 @@ namespace GlitchArtist {
 
         // Vérifier la position
         auto pos = file.tellg();
-        printf("Position dans le fichier: %ld (offset attendu: %u)\n",
-               (long)pos, file_header.offset_data);
+        // printf("Position dans le fichier: %ld (offset attendu: %u)\n",
+        //        (long)pos, file_header.offset_data);
 
         // Calcul du padding
         int bytes_per_row = image->width * image->channels;
         int padded_row_size = ((bytes_per_row + 3) / 4) * 4; // Alignement 4 bytes
         int padding = padded_row_size - bytes_per_row;
 
-        printf("Bytes par ligne: %d, avec padding: %d, padding: %d\n",
-               bytes_per_row, padded_row_size, padding);
+        // printf("Bytes par ligne: %d, avec padding: %d, padding: %d\n",
+        //        bytes_per_row, padded_row_size, padding);
 
         // Allouer mémoire
         image->data.resize(image->width * image->height * image->channels);
 
         // MÉTHODE CORRIGÉE: Lecture ligne par ligne
         bool is_bottom_up = (info_header.height > 0);
-        printf("Bottom-up: %s\n", is_bottom_up ? "Oui" : "Non");
+        // printf("Bottom-up: %s\n", is_bottom_up ? "Oui" : "Non");
 
         std::vector<unsigned char> row_buffer(padded_row_size);
 

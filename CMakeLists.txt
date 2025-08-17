@@ -17,7 +17,13 @@ add_executable(GlitchArtist main.cpp
         src/Effects/EffectStack.cpp
         src/Effects/EffectStack.h
         src/Effects/IEffect.h
-        src/AudioEncoding/IAudioEncoder.h
+        src/AudioEncoding/IAudioCodec.h
+        src/AudioEncoding/MuLawCodec.cpp
+        src/AudioEncoding/MuLawCodec.h
+        src/GuiComponents/EffectStackWindow.cpp
+        src/GuiComponents/EffectStackWindow.h
+        src/Effects/Reverb.cpp
+        src/Effects/Reverb.h
 )
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(GlitchArtist PRIVATE glad::glad)

@@ -16,4 +16,8 @@ namespace GlitchArtist {
     GLuint Image::GetTexture() {
         return format_loader->GetTexture();
     }
+
+    std::vector<unsigned char> * Image::GetData() {
+        return format_loader->GetData();
+    }
 } // GlitchArtist

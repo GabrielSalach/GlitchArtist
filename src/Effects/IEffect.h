@@ -9,7 +9,7 @@ namespace GlitchArtist {
     class IEffect {
     public:
         virtual ~IEffect() = default;
-        virtual void ApplyEffect() = 0;
+        virtual void ApplyEffect(std::vector<float>& samples) = 0;
         virtual void RenderUI() = 0;
     };
 }

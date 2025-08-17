@@ -15,8 +15,9 @@ namespace GlitchArtist {
         explicit Image(IFormatLoader* format_loader);
         void LoadImage(const std::string& filename) const;
         [[nodiscard]] GLuint GetTexture();
+        std::vector<unsigned char>* GetData();
+
     private:
-        std::vector<unsigned char>* data = nullptr;
         IFormatLoader* format_loader = nullptr;
     };
 } // GlitchArtist

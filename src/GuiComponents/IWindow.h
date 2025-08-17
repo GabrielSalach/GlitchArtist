@@ -7,7 +7,7 @@
 
 class IWindow {
 public:
-    virtual ~IWindow() {}
+    virtual ~IWindow() = default;
     virtual void RenderWindow() = 0;
 };
 
