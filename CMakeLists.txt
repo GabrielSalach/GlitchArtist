@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 4.0)
+project(GlitchArtist)
+
+set(CMAKE_CXX_STANDARD 20)
+
+add_executable(GlitchArtist main.cpp
+        src/Application.cpp
+        src/Application.h
+        src/GuiComponents/PreviewWindow.cpp
+        src/GuiComponents/PreviewWindow.h
+        src/GuiComponents/IWindow.h
+        src/FileLoading/BMPLoader.cpp
+        src/FileLoading/BMPLoader.h
+        src/FileLoading/IFormatLoader.h
+        src/FileLoading/Image.cpp
+        src/FileLoading/Image.h
+        src/Effects/EffectStack.cpp
+        src/Effects/EffectStack.h
+        src/Effects/IEffect.h
+        src/AudioEncoding/IAudioEncoder.h
+)
+find_package(glad CONFIG REQUIRED)
+target_link_libraries(GlitchArtist PRIVATE glad::glad)
+find_package(glfw3 CONFIG REQUIRED)
+target_link_libraries(GlitchArtist PRIVATE glfw)
+find_package(imgui CONFIG REQUIRED)
+target_link_libraries(GlitchArtist PRIVATE imgui::imgui)
