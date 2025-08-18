@@ -4,6 +4,8 @@
 
 #include "EffectStack.h"
 
+#include "Delay.h"
+#include "Phaser.h"
 #include "Reverb.h"
 
 namespace GlitchArtist {
@@ -22,7 +24,9 @@ namespace GlitchArtist {
         codec->Decode(*input_samples, *image->GetData());
         output_samples = new std::vector<float>(input_samples->size());
 
-        effects.push_back(new Reverb());
+        // effects.push_back(new Reverb());
+        //effects.push_back(new Delay());
+        effects.push_back(new Phaser());
     }
 
     void EffectStack::ApplyEffects() const {

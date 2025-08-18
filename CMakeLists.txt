@@ -24,6 +24,10 @@ add_executable(GlitchArtist main.cpp
         src/GuiComponents/EffectStackWindow.h
         src/Effects/Reverb.cpp
         src/Effects/Reverb.h
+        src/Effects/Delay.cpp
+        src/Effects/Delay.h
+        src/Effects/Phaser.cpp
+        src/Effects/Phaser.h
 )
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(GlitchArtist PRIVATE glad::glad)
