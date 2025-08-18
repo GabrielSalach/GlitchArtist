@@ -11,6 +11,8 @@ namespace GlitchArtist {
         virtual ~IEffect() = default;
         virtual void ApplyEffect(std::vector<float>& samples) = 0;
         virtual void RenderUI() = 0;
+    protected:
+        bool isActive = false;
     };
 }
 

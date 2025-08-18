@@ -14,10 +14,14 @@ namespace GlitchArtist {
     }
 
     void Delay::RenderUI() {
+
         if (ImGui::CollapsingHeader("Delay")) {
+            ImGui::PushID(this);
+            ImGui::Checkbox("Enabled", &isActive);
             ImGui::DragFloat("Time", &delayTime, 0.001, 0, 3, "%.3f s");
             ImGui::DragFloat("Decay", &decay, .01, 0, 0.9f, "%.2f");
             ImGui::DragFloat("WETNESS", &mixLevel, .01, 0, 1, "%.2f");
+            ImGui::PopID();
         }
     }
 
@@ -27,6 +31,7 @@ namespace GlitchArtist {
     }
 
     void Delay::ApplyEffect(std::vector<float>& samples) {
+        if (!isActive) return;
         // Mettre à jour la longueur de délai si changée
         size_t newDelayLength = static_cast<size_t>(delayTime * sampleRate);
         newDelayLength = std::min(newDelayLength, maxDelayLength);

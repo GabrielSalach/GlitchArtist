@@ -24,8 +24,8 @@ namespace GlitchArtist {
         codec->Decode(*input_samples, *image->GetData());
         output_samples = new std::vector<float>(input_samples->size());
 
-        // effects.push_back(new Reverb());
-        //effects.push_back(new Delay());
+        effects.push_back(new Reverb());
+        effects.push_back(new Delay());
         effects.push_back(new Phaser());
     }
 
@@ -36,8 +36,8 @@ namespace GlitchArtist {
         }
         std::ranges::copy(*input_samples, output_samples->begin());
 
-        for (size_t i = 0; i < effects.size(); i++) {
-            effects[i]->ApplyEffect(*output_samples);
+        for (auto effect : effects) {
+            effect->ApplyEffect(*output_samples);
         }
         codec->Encode(*image->GetData(), *output_samples);
     }

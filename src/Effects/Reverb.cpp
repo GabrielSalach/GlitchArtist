@@ -7,52 +7,99 @@
 #include <imgui.h>
 
 namespace GlitchArtist {
-
-    Reverb::Reverb(const float smpl_rt) : sampleRate(smpl_rt) {
-        // Buffer pour 3 secondes max
-        maxDelayLength = static_cast<size_t>(3.0f * sampleRate);
-        delayBuffer.resize(maxDelayLength, 0.0f);
-        updateDelayLength();
+    Reverb::Reverb(const float smpl_rt) : sampleRate(smpl_rt),
+        // Initialiser les délais comb avec les longueurs ajustées au sample rate
+        combDelays{{
+            DelayLine(static_cast<size_t>(combLengths[0] * sampleRate / 44100.0f)),
+            DelayLine(static_cast<size_t>(combLengths[1] * sampleRate / 44100.0f)),
+            DelayLine(static_cast<size_t>(combLengths[2] * sampleRate / 44100.0f)),
+            DelayLine(static_cast<size_t>(combLengths[3] * sampleRate / 44100.0f)),
+            DelayLine(static_cast<size_t>(combLengths[4] * sampleRate / 44100.0f)),
+            DelayLine(static_cast<size_t>(combLengths[5] * sampleRate / 44100.0f)),
+            DelayLine(static_cast<size_t>(combLengths[6] * sampleRate / 44100.0f)),
+            DelayLine(static_cast<size_t>(combLengths[7] * sampleRate / 44100.0f))
+        }},
+        // Initialiser les délais allpass
+        allpassDelays{{
+            DelayLine(static_cast<size_t>(allpassLengths[0] * sampleRate / 44100.0f)),
+            DelayLine(static_cast<size_t>(allpassLengths[1] * sampleRate / 44100.0f)),
+            DelayLine(static_cast<size_t>(allpassLengths[2] * sampleRate / 44100.0f)),
+            DelayLine(static_cast<size_t>(allpassLengths[3] * sampleRate / 44100.0f))
+        }} {
+        updateParameters();
     }
 
     void Reverb::RenderUI() {
         if (ImGui::CollapsingHeader("Reverb")) {
-            ImGui::DragFloat("Time", &reverbTime, 0.001, 0, 3, "%.3f s");
-            ImGui::DragFloat("Decay", &decay, .001, 0, 0.9f, "%.2f");
-            ImGui::DragFloat("WETNESS", &mixLevel, .001, 0, 1, "%.2f");
+            ImGui::PushID(this);
+            ImGui::Checkbox("Enabled", &isActive);
+            ImGui::DragFloat("Room Size", &roomSize, 0.01f, 0.0f, 1.0f, "%.2f");
+            ImGui::DragFloat("Damping", &damping, 0.01f, 0.0f, 1.0f, "%.2f");
+            ImGui::DragFloat("Width", &width, 0.01f, 0.0f, 1.0f, "%.2f");
+            ImGui::DragFloat("WETNESS", &mixLevel, 0.01f, 0.0f, 1.0f, "%.2f");
+            ImGui::PopID();
         }
     }
 
-    void Reverb::updateDelayLength() {
-        currentDelayLength = static_cast<size_t>(reverbTime * sampleRate);
-        currentDelayLength = std::min(currentDelayLength, maxDelayLength);
+    void Reverb::updateParameters() {
+        // Mettre à jour les paramètres de feedback des combs basés sur roomSize
+        float feedback = 0.28f + (roomSize * 0.7f);
+
+        for (auto& comb : combDelays) {
+            comb.feedback = feedback;
+        }
+    }
+
+    float Reverb::processAllpass(float input, DelayLine& delay) {
+        float delayed = delay.buffer[delay.writeIndex];
+        float output = -input + delayed;
+
+        delay.buffer[delay.writeIndex] = input + delayed * 0.5f;
+        delay.writeIndex = (delay.writeIndex + 1) % delay.length;
+
+        return output;
     }
 
     void Reverb::ApplyEffect(std::vector<float>& samples) {
-        // Mettre à jour la longueur de délai si changée
-        size_t newDelayLength = static_cast<size_t>(reverbTime * sampleRate);
-        newDelayLength = std::min(newDelayLength, maxDelayLength);
-        if (newDelayLength != currentDelayLength) {
-            currentDelayLength = newDelayLength;
-        }
+        if (!isActive) return;
 
-        // Clamp les paramètres au cas où ImGui sortirait des bornes
-        float clampedDecay = std::clamp(decay, 0.0f, 0.9f);
+        // Clamp les paramètres
+        float clampedRoomSize = std::clamp(roomSize, 0.0f, 1.0f);
+        float clampedDamping = std::clamp(damping, 0.0f, 1.0f);
+        float clampedWidth = std::clamp(width, 0.0f, 1.0f);
         float clampedMix = std::clamp(mixLevel, 0.0f, 1.0f);
 
+        // Mettre à jour les paramètres si roomSize a changé
+        static float lastRoomSize = -1.0f;
+        if (std::abs(clampedRoomSize - lastRoomSize) > 0.001f) {
+            roomSize = clampedRoomSize;
+            updateParameters();
+            lastRoomSize = clampedRoomSize;
+        }
+
         for (float& sample : samples) {
-            // Lire l'échantillon retardé
-            size_t readIndex = (writeIndex - currentDelayLength + delayBuffer.size()) % delayBuffer.size();
-            float delayed = delayBuffer[readIndex];
+            float input = sample;
+            float output = 0.0f;
 
-            // Écrire dans le buffer avec feedback
-            delayBuffer[writeIndex] = sample + delayed * clampedDecay;
+            // Étape 1: Traitement par les filtres comb (en parallèle)
+            for (auto& comb : combDelays) {
+                output += comb.process(input, comb.feedback, clampedDamping);
+            }
 
-            // Mélanger dry/wet avec un seul paramètre
-            sample = sample * (1.0f - clampedMix) + delayed * clampedMix;
+            // Moyenner la sortie des combs
+            output *= 0.125f; // 1/8
 
-            // Avancer l'index
-            writeIndex = (writeIndex + 1) % delayBuffer.size();
+            // Étape 2: Traitement par les filtres allpass (en série)
+            for (auto& allpass : allpassDelays) {
+                output = processAllpass(output, allpass);
+            }
+
+            // Contrôle de largeur stéréo (simplifié pour mono)
+            output *= clampedWidth;
+
+            // Mix final dry/wet
+            sample = input * (1.0f - clampedMix) + output * clampedMix;
         }
     }
+
 } // GlitchArtist

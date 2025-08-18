@@ -19,6 +19,7 @@ Phaser::Phaser(const float smpl_rt) : sampleRate(smpl_rt) {
 
     void Phaser::RenderUI() {
         if (ImGui::CollapsingHeader("Phaser")) {
+            ImGui::Checkbox("Enabled", &isActive);
             ImGui::DragFloat("Phase", &lfoPhase, 0.01f, 0.0f, 1.0f, "%.2f");
             ImGui::DragFloat("Depth", &depth, 0.01f, 0.0f, 1.0f, "%.2f");
             ImGui::DragFloat("Feedback", &feedback, 0.01f, 0.0f, 0.9f, "%.2f");
@@ -38,6 +39,7 @@ Phaser::Phaser(const float smpl_rt) : sampleRate(smpl_rt) {
     }
 
     void Phaser::ApplyEffect(std::vector<float>& samples) {
+        if (!isActive) return;
         // Clamp les paramètres au cas où ImGui sortirait des bornes
         float clampedPhase = std::clamp(lfoPhase, 0.0f, 1.0f);
         float clampedDepth = std::clamp(depth, 0.0f, 1.0f);
