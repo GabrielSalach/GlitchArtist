@@ -15,6 +15,9 @@ namespace GlitchArtist {
     }
 
     EffectStack::~EffectStack() {
+        for (auto effect : effects) {
+            delete effect;
+        }
         delete this->input_samples;
         delete this->output_samples;
     }
