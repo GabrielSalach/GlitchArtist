@@ -13,11 +13,18 @@ namespace GlitchArtist {
         format_loader->LoadImage(filename);
     }
 
+    ImVec2 Image::GetSize() const {
+    }
+
     GLuint Image::GetTexture() {
         return format_loader->GetTexture();
     }
 
     std::vector<unsigned char> * Image::GetData() {
         return format_loader->GetData();
+    }
+
+    bool Image::IsValid() const {
+        return format_loader->GetData() != nullptr;
     }
 } // GlitchArtist

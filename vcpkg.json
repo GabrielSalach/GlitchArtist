@@ -1,12 +1,13 @@
 {
-  "name": "glitchartist",
+  "name" : "glitchartist",
   "version" : "1.0",
-  "dependencies": [
+  "dependencies" : [
     {
-      "name": "imgui",
-      "features": ["glfw-binding", "opengl3-binding", "docking-experimental"]
+      "name" : "imgui",
+      "features" : [ "glfw-binding", "opengl3-binding", "docking-experimental" ]
     },
     "glfw3",
-    "glad"
+    "glad",
+    "nativefiledialog-extended"
   ]
 }

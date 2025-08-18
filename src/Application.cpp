@@ -21,25 +21,31 @@ namespace GlitchArtist {
         ImGui_ImplOpenGL3_Init(glsl_version);
         ImGui::StyleColorsDark();
 
-        LoadImage();
         LoadEffectStack();
+        LoadImage(image_path);
         // Initialize windows
         BindWindows();
     }
 
 
-    void Application::LoadImage() {
-        image = new Image(reinterpret_cast<IFormatLoader *>(new BMPLoader()));
-        image->LoadImage(image_path);
+    void Application::LoadImage(const std::string &path) {
+        if (image == nullptr)
+            image = new Image(new BMPLoader());
+        if (path.empty()) {
+            return;
+        }
+        image->LoadImage(path);
+        effect_stack->LoadImage(image);
     }
 
     void Application::LoadEffectStack() {
-        effect_stack = new EffectStack(image, new MuLawCodec());
+        effect_stack = new EffectStack(new MuLawCodec());
         effect_stack->InitializeStack();
     }
 
 
     void Application::BindWindows() {
+        main_menu = new MainMenuBar(this);
         windows.push_back(std::make_unique<EffectStackWindow>(effect_stack));
         windows.push_back(std::make_unique<PreviewWindow>(image));
     }
@@ -51,8 +57,10 @@ namespace GlitchArtist {
     }
 
     void Application::Update() {
+        main_menu->RenderWindow();
         ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
-        effect_stack->ApplyEffects();
+        if (effect_stack->real_time)
+            effect_stack->ApplyEffects();
 
         ImGui::Begin("Debug");
         ImGui::Text("%.f fps", 1.0f / ImGui::GetIO().DeltaTime);

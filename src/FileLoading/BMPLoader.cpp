@@ -7,7 +7,14 @@
 namespace GlitchArtist {
 
     void BMPLoader::LoadImage(const std::string &filename) {
-        image = new BMPImage();
+        if (image == nullptr)
+            image = new BMPImage();
+
+        if (textureID != 0) {
+            glDeleteTextures(1, &textureID);
+            textureID = 0;
+        }
+        image->data.clear();
         image->valid = false;
 
         std::ifstream file(filename, std::ios::binary);
@@ -173,8 +180,12 @@ namespace GlitchArtist {
         return textureID;
     }
 
+    ImVec2 BMPLoader::GetSize() {
+        return {static_cast<float>(image->width), static_cast<float>(image->height)};
+    }
+
     std::vector<unsigned char> * BMPLoader::GetData() {
-        if (!image->valid) {
+        if (image == nullptr || !image->valid) {
             return nullptr;
         }
 

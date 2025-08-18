@@ -7,6 +7,8 @@
 #include <imgui.h>
 #include <GLFW/glfw3.h>
 
+#include "../Helpers/ImGuiHelper.h"
+
 namespace GlitchArtist {
     PreviewWindow::PreviewWindow(Image *image) {
         this->image = image;
@@ -14,9 +16,13 @@ namespace GlitchArtist {
 
     void PreviewWindow::RenderWindow() {
         ImGui::Begin("Preview");
-        GLuint textureID = image->GetTexture();
-        //ImGui::Text(std::to_string(textureID).c_str());
-        ImGui::Image(textureID, ImVec2(500, 500));
+        if (!image->IsValid()) {
+            CenterText("No preview image");
+            ImGui::Text("No preview image");
+        } else {
+            CenterImage(ImVec2(500, 500));
+            ImGui::Image(image->GetTexture(), ImVec2(500, 500));
+        }
         ImGui::End();
     }
 } // GlitchArtist

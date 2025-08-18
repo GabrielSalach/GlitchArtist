@@ -12,6 +12,7 @@ public:
     virtual void LoadImage(const std::string& filename) = 0;
     virtual std::vector<unsigned char>* GetData() = 0;
     virtual GLuint GetTexture() = 0;
+    virtual ImVec2 GetSize() = 0;
 };
 
 #endif //GLITCHARTIST_IFORMATLOADER_H

@@ -28,6 +28,11 @@ add_executable(GlitchArtist main.cpp
         src/Effects/Delay.h
         src/Effects/Phaser.cpp
         src/Effects/Phaser.h
+        src/GuiComponents/MainMenuBar.cpp
+        src/GuiComponents/MainMenuBar.h
+        src/Helpers/ImGuiHelper.h
+        src/Effects/Distorsion.cpp
+        src/Effects/Distorsion.h
 )
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(GlitchArtist PRIVATE glad::glad)
@@ -35,3 +40,5 @@ find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(GlitchArtist PRIVATE glfw)
 find_package(imgui CONFIG REQUIRED)
 target_link_libraries(GlitchArtist PRIVATE imgui::imgui)
+find_package(nfd CONFIG REQUIRED)
+target_link_libraries(GlitchArtist PRIVATE nfd::nfd)

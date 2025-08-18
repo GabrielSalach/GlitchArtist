@@ -2,6 +2,7 @@
 #define GLITCHARTIST_BMPLOADER_H
 
 #include <fstream>
+#include <imgui.h>
 #include <vector>
 #include <glad/glad.h>
 
@@ -42,7 +43,7 @@ namespace GlitchArtist {
     };
 
 
-    class BMPLoader : IFormatLoader {
+    class BMPLoader : public IFormatLoader {
     public:
         std::vector<unsigned char>* GetData() override;
 
@@ -50,6 +51,7 @@ namespace GlitchArtist {
 
         void LoadImage(const std::string& filename) override;
         GLuint GetTexture() override;
+        ImVec2 GetSize() override;
     private:
         BMPImage* image = nullptr;
         GLuint textureID = 0;

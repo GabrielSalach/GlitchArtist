@@ -14,19 +14,26 @@ namespace GlitchArtist {
 
     class EffectStack {
     public:
-        explicit EffectStack(Image* image, IAudioCodec* codec);
+        explicit EffectStack(IAudioCodec* codec);
 
         ~EffectStack();
 
         void InitializeStack();
+        void LoadImage(Image* img);
         void ApplyEffects() const;
         void RenderUI() const;
         std::vector<IEffect*> effects;
+        void PushEffect(IEffect* effect);
+        void RemoveEffect(size_t index);
+        void MoveEffectUp(size_t index);
+        void MoveEffectDown(size_t index);
+        bool real_time = true;
     private:
         std::vector<float>* input_samples = nullptr;
         std::vector<float>* output_samples = nullptr;
         Image* image = nullptr;
         IAudioCodec* codec = nullptr;
+        [[nodiscard]] const std::vector<IEffect*>& GetEffects() const { return effects; }
     };
 } // GlitchArtist
 
