@@ -33,6 +33,8 @@ add_executable(GlitchArtist main.cpp
         src/Helpers/ImGuiHelper.h
         src/Effects/Distorsion.cpp
         src/Effects/Distorsion.h
+        src/GuiComponents/AudioWindow.cpp
+        src/GuiComponents/AudioWindow.h
 )
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(GlitchArtist PRIVATE glad::glad)

@@ -7,6 +7,7 @@
 #include "AudioEncoding/MuLawCodec.h"
 #include "GuiComponents/PreviewWindow.h"
 #include "FileLoading/BMPLoader.h"
+#include "GuiComponents/AudioWindow.h"
 #include "GuiComponents/EffectStackWindow.h"
 
 namespace GlitchArtist {
@@ -48,6 +49,7 @@ namespace GlitchArtist {
         main_menu = new MainMenuBar(this);
         windows.push_back(std::make_unique<EffectStackWindow>(effect_stack));
         windows.push_back(std::make_unique<PreviewWindow>(image));
+        windows.push_back(std::make_unique<AudioWindow>(effect_stack));
     }
 
     void Application::NewFrame() {

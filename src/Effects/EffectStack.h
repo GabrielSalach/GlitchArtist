@@ -27,6 +27,7 @@ namespace GlitchArtist {
         void RemoveEffect(size_t index);
         void MoveEffectUp(size_t index);
         void MoveEffectDown(size_t index);
+        std::vector<float>* GetSamples() const;
         bool real_time = true;
     private:
         std::vector<float>* input_samples = nullptr;

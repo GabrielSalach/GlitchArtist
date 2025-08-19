@@ -25,11 +25,6 @@ namespace GlitchArtist {
     void EffectStack::InitializeStack() {
         input_samples = new std::vector<float>();
         output_samples = new std::vector<float>();
-
-        effects.push_back(new Reverb());
-        effects.push_back(new Delay());
-        effects.push_back(new Phaser());
-        effects.push_back(new Distorsion());
     }
 
     void EffectStack::LoadImage(Image *img) {
@@ -121,4 +116,7 @@ namespace GlitchArtist {
         }
     }
 
+    std::vector<float> * EffectStack::GetSamples() const {
+        return this->output_samples;
+    }
 } // GlitchArtist

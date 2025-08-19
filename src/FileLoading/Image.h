@@ -15,7 +15,7 @@ namespace GlitchArtist {
     public:
         explicit Image(IFormatLoader* format_loader);
         void LoadImage(const std::string& filename) const;
-        ImVec2 GetSize() const;
+        [[nodiscard]] ImVec2 GetSize() const;
         [[nodiscard]] GLuint GetTexture();
         std::vector<unsigned char>* GetData();
         [[nodiscard]] bool IsValid() const;
