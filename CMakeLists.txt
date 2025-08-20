@@ -39,6 +39,8 @@ add_executable(GlitchArtist main.cpp
         src/GuiComponents/HexEditorWindow.h
         src/Effects/Chorus.cpp
         src/Effects/Chorus.h
+        src/Effects/Glitcher.cpp
+        src/Effects/Glitcher.h
 )
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(GlitchArtist PRIVATE glad::glad)
