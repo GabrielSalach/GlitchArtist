@@ -1,11 +1,13 @@
 # GlitchArtist
-Image editor that loads BMP files as audio samples, allowing you to apply audio effects like reverb or delay.
+Image editor that loads BMP files as audio samples, allowing you to apply audio effects like reverb or delay. Written in C++ with [GLFW](https://github.com/glfw/glfw) and [Dear ImGui](https://github.com/ocornut/imgui).
 
 <img width="1392" height="860" alt="Capture d’écran 2025-08-21 à 01 17 08" src="https://github.com/user-attachments/assets/7cc6c769-594d-40df-8cb1-6b2032db1f17" />
 
 The inspiration behind this project came from this video : https://www.youtube.com/watch?v=Z_Rut5gjwfE
 
 I basically wanted to recreate a real time version of that process, turning an image into audio samples and apply audio effects just to see what it looks like. Maybe it has some potential for artists.
+
+Only tested on MacOS.
 
 ## Features : 
 - BMP import (files < 2MB recommended)
