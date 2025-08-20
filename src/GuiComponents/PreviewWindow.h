@@ -14,7 +14,7 @@ namespace GlitchArtist {
         void RenderWindow() override;
     private:
         Image* image;
-        const float zoom_sensitivity = 10.0f;
+        float zoom_level = 1.0f;
         ImVec2 img_size;
     };
 } // GlitchArtist

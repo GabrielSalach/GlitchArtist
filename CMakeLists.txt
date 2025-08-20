@@ -35,6 +35,10 @@ add_executable(GlitchArtist main.cpp
         src/Effects/Distorsion.h
         src/GuiComponents/AudioWindow.cpp
         src/GuiComponents/AudioWindow.h
+        src/GuiComponents/HexEditorWindow.cpp
+        src/GuiComponents/HexEditorWindow.h
+        src/Effects/Chorus.cpp
+        src/Effects/Chorus.h
 )
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(GlitchArtist PRIVATE glad::glad)

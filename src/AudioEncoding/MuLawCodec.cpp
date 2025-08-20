@@ -144,6 +144,7 @@ namespace GlitchArtist {
         }
     }
 
+
     unsigned char MuLawCodec::encodePcm16ToMuLaw(int16_t pcm16) {
         int16_t sign = (pcm16 >> 8) & 0x80;  // Bit de signe
         if (sign) {
@@ -156,8 +157,7 @@ namespace GlitchArtist {
 
         pcm16 += MU_LAW_BIAS;
 
-        int16_t exponent = 7;
-        int16_t mantissa;
+        int16_t exponent = 7; int16_t mantissa;
 
         // Trouver l'exposant
         for (int16_t exp_lut = 0x4000; pcm16 < exp_lut && exponent > 0; exponent--, exp_lut >>= 1) {

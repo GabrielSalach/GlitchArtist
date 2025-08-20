@@ -30,8 +30,7 @@ namespace GlitchArtist {
 
         std::vector<std::unique_ptr<IWindow>> windows;
         MainMenuBar* main_menu = nullptr;
-        const std::string image_path = "";
-        // const std::string image_path = "/Users/gabrielsalach/Desktop/test.bmp";
+        const std::string image_path;
         Image* image = nullptr;
         EffectStack* effect_stack = nullptr;
     };

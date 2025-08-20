@@ -23,12 +23,13 @@ namespace GlitchArtist {
             CenterText("No preview image");
             ImGui::Text("No preview image");
         } else {
+            ImGui::SliderFloat("Zoom Level", &zoom_level, 0.3f, 2.0f);
+            ImVec2 real_size = img_size;
+            real_size.x *= zoom_level;
+            real_size.y *= zoom_level;
 
-            img_size.x += io.MouseWheel * zoom_sensitivity;
-            img_size.y += io.MouseWheel * zoom_sensitivity;
-
-            CenterImage(img_size);
-            ImGui::Image(image->GetTexture(), img_size);
+            CenterImage(real_size);
+            ImGui::Image(image->GetTexture(), real_size);
         }
         ImGui::End();
     }

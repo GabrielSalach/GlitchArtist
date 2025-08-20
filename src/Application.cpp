@@ -9,6 +9,7 @@
 #include "FileLoading/BMPLoader.h"
 #include "GuiComponents/AudioWindow.h"
 #include "GuiComponents/EffectStackWindow.h"
+#include "GuiComponents/HexEditorWindow.h"
 
 namespace GlitchArtist {
     void Application::Init(GLFWwindow* window, const char* glsl_version) {
@@ -22,12 +23,13 @@ namespace GlitchArtist {
         ImGui_ImplOpenGL3_Init(glsl_version);
         ImGui::StyleColorsDark();
 
+
+
         LoadEffectStack();
         LoadImage(image_path);
         // Initialize windows
         BindWindows();
     }
-
 
     void Application::LoadImage(const std::string &path) {
         if (image == nullptr)
@@ -44,12 +46,12 @@ namespace GlitchArtist {
         effect_stack->InitializeStack();
     }
 
-
     void Application::BindWindows() {
         main_menu = new MainMenuBar(this);
         windows.push_back(std::make_unique<EffectStackWindow>(effect_stack));
         windows.push_back(std::make_unique<PreviewWindow>(image));
         windows.push_back(std::make_unique<AudioWindow>(effect_stack));
+        windows.push_back(std::make_unique<HexEditorWindow>(image));
     }
 
     void Application::NewFrame() {
@@ -72,7 +74,6 @@ namespace GlitchArtist {
             window->RenderWindow();
         }
     }
-
 
     void Application::Render() {
         ImGui::Render();
