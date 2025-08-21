@@ -10,7 +10,7 @@
 
 namespace GlitchArtist {
     void Glitcher::ApplyEffect(std::vector<float> &samples) {
-        const float sample_gap_bounds = static_cast<float>(sample_size) * (randomness * 10 + 1);
+        const float sample_gap_bounds = static_cast<float>(sample_size) * (randomness * 1000 + 1);
 
         const int gap_modifier = (static_cast<int>(sample_gap_bounds) - sample_size)/2;
         const int gap_min = sample_size - gap_modifier;

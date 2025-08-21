@@ -33,6 +33,7 @@ namespace GlitchArtist {
         const std::string image_path;
         Image* image = nullptr;
         EffectStack* effect_stack = nullptr;
+        IFormatLoader* format_loader = nullptr;
     };
 } // GlitchArtist
 

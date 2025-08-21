@@ -32,8 +32,10 @@ namespace GlitchArtist {
     }
 
     void Application::LoadImage(const std::string &path) {
-        if (image == nullptr)
-            image = new Image(new BMPLoader());
+        if (image == nullptr) {
+            format_loader = new BMPLoader();
+            image = new Image(format_loader);
+        }
         if (path.empty()) {
             return;
         }
@@ -61,10 +63,11 @@ namespace GlitchArtist {
     }
 
     void Application::Update() {
-        main_menu->RenderWindow();
-        ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
         if (effect_stack->real_time)
             effect_stack->ApplyEffects();
+
+        main_menu->RenderWindow();
+        ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
 
         ImGui::Begin("Debug");
         ImGui::Text("%.f fps", 1.0f / ImGui::GetIO().DeltaTime);
@@ -87,6 +90,8 @@ namespace GlitchArtist {
 
         delete effect_stack;
         delete image;
+        delete format_loader;
+        delete main_menu;
         windows.clear();
 
     }
