@@ -22,7 +22,6 @@ Only tested on MacOS.
 - More effects
 - Cutting/Pasting for the hex viewer and audio visualizer
 - Full blown hex editor
-- Glitcher effect
 - I might wanna add other accepted file formats, mostly images but I also wanna explore the reverse process (audio -> image) and 3D models
 
 ## How to install
