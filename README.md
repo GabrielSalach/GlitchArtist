@@ -5,7 +5,7 @@ Image editor that loads BMP files as audio samples, allowing you to apply audio 
 
 The inspiration behind this project came from this video : https://www.youtube.com/watch?v=Z_Rut5gjwfE
 
-I basically wanted to recreate a real time version of that process, turning an image into audio samples and apply audio effects just to see what it looks like. Maybe it has some potential for artists.
+I basically wanted to recreate a real time version of that process, turning an image into audio samples and apply audio effects just to see what it looks like when you're tweaking the values in real time. Maybe it has some potential for artists.
 
 Only tested on MacOS.
 
