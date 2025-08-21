@@ -39,12 +39,6 @@
 
 # debug information files
 *.dwo
-/.idea/.gitignore
-/.idea/editor.xml
-/.idea/encodings.xml
-/.idea/GlitchArtist.iml
-/.idea/misc.xml
-/.idea/modules.xml
-/.idea/vcs.xml
 
 /Resources/
+/.idea/

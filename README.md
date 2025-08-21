@@ -15,6 +15,7 @@ Only tested on MacOS.
 - Audio samples visualizer
 - Hex viewer
 - Real time display (with a toggle if you wanna stack a lot of effects)
+- Glitcher effect (Creates glitchy lines)
 
 ## Planned features :
 - BMP export

@@ -35,12 +35,12 @@ namespace GlitchArtist {
 
         if (ImGui::BeginPopup("select_effect")) {
             ImGui::SeparatorText("Effects");
-            if (ImGui::Button("Reverb")) {effect_stack->PushEffect(new Reverb);}
-            if (ImGui::Button("Delay")) {effect_stack->PushEffect(new Delay);}
-            if (ImGui::Button("Phaser")) {effect_stack->PushEffect(new Phaser);}
-            if (ImGui::Button("Distorsion")) {effect_stack->PushEffect(new Distorsion);}
-            if (ImGui::Button("Chorus")) {effect_stack->PushEffect(new Chorus());}
-            if (ImGui::Button("Glitcher")) {effect_stack->PushEffect(new Glitcher());}
+            if (ImGui::Button("Reverb")) {effect_stack->PushEffect(new Reverb); ImGui::CloseCurrentPopup();}
+            if (ImGui::Button("Delay")) {effect_stack->PushEffect(new Delay); ImGui::CloseCurrentPopup();}
+            if (ImGui::Button("Phaser")) {effect_stack->PushEffect(new Phaser); ImGui::CloseCurrentPopup();}
+            if (ImGui::Button("Distorsion")) {effect_stack->PushEffect(new Distorsion); ImGui::CloseCurrentPopup();}
+            if (ImGui::Button("Chorus")) {effect_stack->PushEffect(new Chorus()); ImGui::CloseCurrentPopup();}
+            if (ImGui::Button("Glitcher")) {effect_stack->PushEffect(new Glitcher()); ImGui::CloseCurrentPopup();}
             ImGui::EndPopup();
         }
 
