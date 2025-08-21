@@ -23,7 +23,7 @@ namespace GlitchArtist {
         ImGui_ImplOpenGL3_Init(glsl_version);
         ImGui::StyleColorsDark();
 
-
+        srand(time(nullptr));
 
         LoadEffectStack();
         LoadImage(image_path);

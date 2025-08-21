@@ -11,6 +11,7 @@
 #include "../Effects/Phaser.h"
 #include "../Effects/Reverb.h"
 #include "../Effects/Chorus.h"
+#include "../Effects/Glitcher.h"
 
 namespace GlitchArtist {
     EffectStackWindow::EffectStackWindow(EffectStack* effect_stack) {
@@ -39,6 +40,7 @@ namespace GlitchArtist {
             if (ImGui::Button("Phaser")) {effect_stack->PushEffect(new Phaser);}
             if (ImGui::Button("Distorsion")) {effect_stack->PushEffect(new Distorsion);}
             if (ImGui::Button("Chorus")) {effect_stack->PushEffect(new Chorus());}
+            if (ImGui::Button("Glitcher")) {effect_stack->PushEffect(new Glitcher());}
             ImGui::EndPopup();
         }
 

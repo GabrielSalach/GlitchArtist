@@ -11,16 +11,13 @@
 namespace GlitchArtist {
     class Glitcher : public IEffect {
     public:
-        ~Glitcher() override;
-
         void ApplyEffect(std::vector<float>& samples) override;
         void RenderUI() override;
     private:
-        float seed;
-        int sample_amount_min, sample_amount_max;
-        float sample_amount_randomness;
-        float spacing_min, spacing_max;
-        float spacing_randomness;
+        int seed = 0;
+        int sample_size = 0;
+        float randomness = 0;
+        int loop_amount = 0;
     };
 } // GlitchArtist
 
