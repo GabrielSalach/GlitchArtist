@@ -5,6 +5,9 @@
 #ifndef GLITCHARTIST_IFORMATLOADER_H
 #define GLITCHARTIST_IFORMATLOADER_H
 #include <vector>
+#ifdef _WIN32
+#include <string>
+#endif
 
 class IFormatLoader {
 public:

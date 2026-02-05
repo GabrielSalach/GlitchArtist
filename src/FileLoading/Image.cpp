@@ -3,6 +3,9 @@
 //
 
 #include "Image.h"
+#ifdef _WIN32
+#include <string>
+#endif
 
 namespace GlitchArtist {
     Image::Image(IFormatLoader *format_loader) {

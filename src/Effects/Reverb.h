@@ -5,6 +5,9 @@
 #ifndef GLITCHARTIST_REVERB_H
 #define GLITCHARTIST_REVERB_H
 #include <vector>
+#ifdef _WIN32
+#include <array>
+#endif
 
 #include "IEffect.h"
 

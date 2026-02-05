@@ -9,6 +9,9 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <vector>
+#ifdef _WIN32
+#include <memory>
+#endif
 
 #include "Effects/EffectStack.h"
 #include "GuiComponents/IWindow.h"

@@ -4,6 +4,9 @@
 
 #include "Distorsion.h"
 #include <imgui.h>
+#ifdef _WIN32
+#include <algorithm>
+#endif
 
 namespace GlitchArtist {
     void Distorsion::ApplyEffect(std::vector<float>& samples) {

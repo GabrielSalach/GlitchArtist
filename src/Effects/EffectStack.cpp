@@ -8,6 +8,9 @@
 #include "Distorsion.h"
 #include "Phaser.h"
 #include "Reverb.h"
+#ifdef _WIN32
+#include <algorithm>
+#endif
 
 namespace GlitchArtist {
     EffectStack::EffectStack(IAudioCodec* codec) {

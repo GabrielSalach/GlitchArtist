@@ -3,6 +3,10 @@
 //
 
 #include "Delay.h"
+
+#ifdef _WIN32
+#include <algorithm>
+#endif
 #include <imgui.h>
 
 namespace GlitchArtist {

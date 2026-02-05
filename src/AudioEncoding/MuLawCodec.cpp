@@ -4,6 +4,9 @@
 
 #include "MuLawCodec.h"
 #include <thread>
+#ifdef _WIN32
+#include <algorithm>
+#endif
 
 namespace GlitchArtist {
     void MuLawCodec::Decode(std::vector<float> &samples, std::vector<unsigned char> &raw_data_buffer) {

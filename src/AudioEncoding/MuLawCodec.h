@@ -5,6 +5,9 @@
 #ifndef GLITCHARTIST_MULAWENCODER_H
 #define GLITCHARTIST_MULAWENCODER_H
 #include "IAudioCodec.h"
+#ifdef _WIN32
+#include <cstdint>
+#endif
 
 namespace GlitchArtist {
     class MuLawCodec : public IAudioCodec {

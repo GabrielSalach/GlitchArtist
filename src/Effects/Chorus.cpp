@@ -4,6 +4,9 @@
 
 #include "Chorus.h"
 #include <imgui.h>
+#ifdef _WIN32
+#include <math.h>
+#endif
 
 namespace GlitchArtist {
     Chorus::Chorus(float sr) :

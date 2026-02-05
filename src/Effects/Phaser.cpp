@@ -6,6 +6,9 @@
 
 #include <imgui.h>
 #include <algorithm>
+#ifdef _WIN32
+#include <cmath>
+#endif
 
 
 namespace GlitchArtist {

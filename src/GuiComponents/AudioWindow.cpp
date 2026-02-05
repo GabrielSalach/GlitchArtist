@@ -5,6 +5,9 @@
 #include "AudioWindow.h"
 
 #include <imgui.h>
+#ifdef _WIN32
+#include <limits>
+#endif
 
 namespace GlitchArtist {
     AudioWindow::AudioWindow(EffectStack *stack) : audio_samples(nullptr) {

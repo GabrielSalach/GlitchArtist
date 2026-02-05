@@ -5,6 +5,9 @@
 #include "Reverb.h"
 
 #include <imgui.h>
+#ifdef _WIN32
+#include <algorithm>
+#endif
 
 namespace GlitchArtist {
     Reverb::Reverb(const float smpl_rt) : sampleRate(smpl_rt),

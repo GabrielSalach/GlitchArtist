@@ -7,6 +7,9 @@
 #include <imgui.h>
 #include <vector>
 #include <glad/glad.h>
+#ifdef _WIN32
+#include <string>
+#endif
 
 #include "IFormatLoader.h"
 
